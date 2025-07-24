@@ -5,6 +5,8 @@ import { Github, Twitter, Linkedin, MessageCircle, Loader2, LayoutDashboard } fr
 import { blink } from './blink/client'
 import { ProjectDashboard } from './components/ProjectDashboard'
 import PricingPage from './components/PricingPage'
+import TermsPage from './components/TermsPage'
+import PrivacyPage from './components/PrivacyPage'
 
 interface User {
   id: string
@@ -12,7 +14,7 @@ interface User {
   displayName?: string
 }
 
-type View = 'home' | 'dashboard' | 'pricing'
+type View = 'home' | 'dashboard' | 'pricing' | 'terms' | 'privacy'
 
 function App() {
   const [prompt, setPrompt] = useState('')
@@ -139,6 +141,10 @@ function App() {
         />
       ) : currentView === 'pricing' ? (
         <PricingPage />
+      ) : currentView === 'terms' ? (
+        <TermsPage onBack={() => setCurrentView('home')} />
+      ) : currentView === 'privacy' ? (
+        <PrivacyPage onBack={() => setCurrentView('home')} />
       ) : (
         <main className="flex-1 flex items-center justify-center px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl w-full text-center">
@@ -258,8 +264,8 @@ function App() {
                 Legal
               </h3>
               <ul className="space-y-3">
-                <li><a href="#" className="text-gray-600 hover:text-gray-900 transition-colors">Privacy</a></li>
-                <li><a href="#" className="text-gray-600 hover:text-gray-900 transition-colors">Terms</a></li>
+                <li><button onClick={() => setCurrentView('privacy')} className="text-gray-600 hover:text-gray-900 transition-colors text-left">Privacy</button></li>
+                <li><button onClick={() => setCurrentView('terms')} className="text-gray-600 hover:text-gray-900 transition-colors text-left">Terms</button></li>
                 <li><a href="#" className="text-gray-600 hover:text-gray-900 transition-colors">Support</a></li>
               </ul>
             </div>
